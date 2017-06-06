@@ -1,0 +1,18 @@
+{
+  "name": "jsonparser",
+  "version": "1.0.0",
+  "description": "test app",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "default",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "jade": "^1.11.0",
+    "mongodb": "^2.2.28"
+  }
+}

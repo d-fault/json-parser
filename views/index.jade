@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  .container
+    h1= title
+    hr
+    form(action="/result", method="POST")
+      input(type="text", name="url", placeholder="url")
+      button(type="submit") Submit
