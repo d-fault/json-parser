@@ -6,7 +6,7 @@ const db = require('./config/db')
 const app = express()
 
 const port = 3030
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({extended: false}))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.set('views', path.join(__dirname, 'views'))
