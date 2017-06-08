@@ -12,4 +12,5 @@ module.exports = (app, db) => {
     res.render('aggregation', {title: 'Aggregation'})
   })
   sortRoutes(app, db)
+  agrgRoutes(app, db)
 }

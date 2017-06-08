@@ -30,6 +30,7 @@ module.exports = (app, db) => {
       for (i = 0; i < dataInput.length; i++) {
         let utcTime = new Date(dataInput[i].data.created_utc * 1000)
         dataOutput[i] = {
+          'domain': dataInput[i].data.domain,
           'id': dataInput[i].data.id,
           'title': dataInput[i].data.title,
           'date': utcTime,

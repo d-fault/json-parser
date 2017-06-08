@@ -11,7 +11,7 @@ module.exports =  getJsonFromUrl = (url, callback) => {
       catch(e) {
         let startPos = jsonpData.indexOf('({')
         let endPos = jsonpData.indexOf('})')
-        let jsonString = jsonpData.sudstring(startPos+1, endPos+1)
+        let jsonString = jsonpData.substring(startPos+1, endPos+1)
         json = JSON.parse(jsonString)
       }
       callback(null, json)
