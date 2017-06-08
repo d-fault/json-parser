@@ -4,12 +4,16 @@ const csvConverter = require('../middleware/csv')
 
 
 module.exports = (app, db) => {
-  app.post('/result', (req, res) => {
+  app.post('/sorting', (req, res) => {
 
     var resID
+    let resDLM
     for (i = 0; i < sortConf.data.length; i++) {
       if (req.body.srt === sortConf.data[i].name) {
         resID = sortConf.data[i].id
+      }
+      if (req.body.dlm === sortConf.data[i].name) {
+        resDLM = sortConf.data[i].id
       }
     }
 
@@ -18,7 +22,6 @@ module.exports = (app, db) => {
     }
 
     getJSON(req.body.url, (err, data) => {
-      //sort data
 
       let dataInput = data.data.children
       let dataOutput = []
@@ -36,7 +39,7 @@ module.exports = (app, db) => {
 
       res.render('result', {
         title: 'Result',
-        result: csvConverter(dataOutput)
+        result: csvConverter(dataOutput, resDLM)
       })
     })
   })

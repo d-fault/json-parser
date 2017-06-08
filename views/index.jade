@@ -2,21 +2,5 @@ extends layout
 
 block content
   .container
-    h1= title
-    hr
-    form(action="/result", method="POST")
-      .form-group
-        label(for="url") Insert URL
-        input#url.form-control(type="text", name="url")
-      hr
-      form
-        label(for='srt') Sorting methods:
-          select#srt.form-control(name="srt")
-            option
-            option Sort by Date
-            option Sort by Score
-        div
-          button.btn.btn-primary(type='submit') Go!
-      hr
-      //- input(type="text", name="url", placeholder="url")
-      //- button(type="submit") Submit
+    .panel.panel-default
+      .panel-body home

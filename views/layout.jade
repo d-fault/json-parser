@@ -1,8 +1,20 @@
 doctype html
 html
-  head
+  block head
     title= title
-    //- link(rel='stylesheet', href='/css/style.css')
+    link(rel='stylesheet', href='/css/style.css')
     link(rel='stylesheet', href='/css/bootstrap.min.css')
+    //- script(type='text/javascript', src='/javascript/bootstrap.min.js')
+    //- script(type='text/javascript', src='/javascript/jquery-3.2.1.min.js')
   body
+    .container
+      h1= title
+      ul.nav.nav-tabs
+        li
+          a(data-toggle='tab', href='/') Home
+        li
+          a(data-toggle='tab', href='/sorting') Sorting
+        li
+          a(data-toggle='tab', href='/aggregation') Aggregation
+        
     block content

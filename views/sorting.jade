@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  .container
+    form(action="/sorting", method="POST")
+      .form-group
+        label(for="url") Insert URL
+        input#url.form-control(type="text", name="url")
+      //- hr
+      .tab-content
+        #sorting.tab-pane.fade.in.active
+          form
+            label(for='srt') Sorting methods:
+              select#srt.form-control(name="srt")
+                option
+                option Sort by Date
+                option Sort by Score
+            label(for='dlm') Delimiters:
+              select#dlm.form-control(name='dlm')
+                option
+                option ";"
+                option "::"
+            div
+              button.btn.btn-primary(type='submit') Go!
+            hr
+    //- .form-group
+    //-   textarea#comment.form-control(readonly='true', rows='30')=result

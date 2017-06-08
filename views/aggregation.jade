@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  .container
+    form(action="/aggregation", method="POST")
+      .form-group
+        label(for="url") Insert URL
+        input#url.form-control(type="text", name="url")
+      //- hr
+      .tab-content
+        #aggregation.tab-pane.fade.in.active
+          div
+            button.btn.btn-primary(type='submit') Go!
+          hr
