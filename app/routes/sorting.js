@@ -1,5 +1,6 @@
 const getJSON = require('../middleware/getjson')
 const sortConf = require('../../config/srt')
+const csvConverter = require('../middleware/csv')
 
 
 module.exports = (app, db) => {
@@ -13,32 +14,29 @@ module.exports = (app, db) => {
     }
 
     const SortBy = (start, end) => {
-      console.log("output: ", typeof(end.data))
       return end.data[resID] - start.data[resID]
     }
 
     getJSON(req.body.url, (err, data) => {
       //sort data
+
       let dataInput = data.data.children
       let dataOutput = []
       dataInput = dataInput.sort(SortBy)
 
       for (i = 0; i < dataInput.length; i++) {
-        // console.log("OUT: ", SortBy)
         let utcTime = new Date(dataInput[i].data.created_utc * 1000)
         dataOutput[i] = {
           'id': dataInput[i].data.id,
           'title': dataInput[i].data.title,
-          'score': dataInput[i].data.score,
-          'date': utcTime
+          'date': utcTime,
+          'score': dataInput[i].data.score
         }
       }
-      //output Result
 
-      // console.log('console output: ', dataOutput)
       res.render('result', {
         title: 'Result',
-        result: JSON.stringify(dataOutput)
+        result: csvConverter(dataOutput)
       })
     })
   })

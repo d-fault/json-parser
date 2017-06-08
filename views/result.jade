@@ -3,4 +3,6 @@ block content
   .container
     h1=title
     hr
-    div=result
+    .form-group
+      textarea#comment.form-control(readonly='true', rows='30')=result
+      
