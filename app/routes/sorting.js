@@ -8,7 +8,6 @@ module.exports = (app) => {
 
     let resID
     let resDLM = "," // default delimiter
-    let brk = '"'  // really?
     for (i = 0; i < sortConf.data.length; i++) {
       if (req.body.srt === sortConf.data[i].name) {
         resID = sortConf.data[i].id
@@ -43,8 +42,7 @@ module.exports = (app) => {
       res.render('result', {
         title: 'Result',
         sortresult: dataOutput,
-        dlm: resDLM,
-        brk: brk
+        dlm: resDLM
         // result: csvConverter(dataOutput, resDLM)
       })
     })

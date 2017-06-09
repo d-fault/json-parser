@@ -5,7 +5,7 @@ block content
       .panel-body
           if !agrgresult
             each key in sortresult
-              p #{brk}#{key.domain}#{brk}#{dlm}#{brk}#{key.id}#{brk}#{dlm}#{brk}#{key.title}#{brk} #{dlm}#{brk}#{key.date}#{brk}#{dlm}#{brk}#{key.score}#{brk}
+              p "#{key.domain}"#{dlm}"#{key.id}"#{dlm}"#{key.title}"#{dlm}"#{key.date}"#{dlm}"#{key.score}"
           else
             //- each key in agrgresult
             each key in agrgresult
