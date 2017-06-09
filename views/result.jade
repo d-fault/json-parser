@@ -1,5 +1,12 @@
 extends layout
 block content
   .container
-    .form-group
-      textarea#comment.form-control(readonly='true', rows='30')=result
+    .panel.panel-default
+      .panel-body
+          if !agrgresult
+            each key in sortresult
+              p #{brk}#{key.domain}#{brk}#{dlm}#{brk}#{key.id}#{brk}#{dlm}#{brk}#{key.title}#{brk} #{dlm}#{brk}#{key.date}#{brk}#{dlm}#{brk}#{key.score}#{brk}
+          else
+            //- each key in agrgresult
+            each key in agrgresult
+              p "#{key.domain}", "#{key.amount}", "#{key.score}"

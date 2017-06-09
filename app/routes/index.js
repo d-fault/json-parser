@@ -1,7 +1,7 @@
 const sortRoutes = require('./sorting')
 const agrgRoutes = require('./aggregation')
 
-module.exports = (app, db) => {
+module.exports = (app) => {
   app.get('/', (req, res) => {
     res.render('index', {title: 'Home'})
   })
@@ -11,6 +11,6 @@ module.exports = (app, db) => {
   app.get('/aggregation', (req, res) => {
     res.render('aggregation', {title: 'Aggregation'})
   })
-  sortRoutes(app, db)
-  agrgRoutes(app, db)
+  sortRoutes(app)
+  agrgRoutes(app)
 }

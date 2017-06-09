@@ -1,16 +1,24 @@
-const getJSON = require('../middleware/getjson')
+const getJSON = require('../utils/getjson')
 const _ =require('underscore')
 const util = require('util')
 
-module.exports = (app, db) => {
+module.exports = (app) => {
 
   app.post('/aggregation', (req, res) => {
 
     getJSON(req.body.url, (err, data) => {
       let dataInput = data.data.children
       let dataMiddle = []
+      let finalResult = []
+
       for (i = 0; i < dataInput.length; i++) {
         dataMiddle[i] = dataInput[i].data
+      }
+
+      sum = (numbers) => {
+        return _.reduce(numbers, (result, current) => {
+          return result + parseFloat(current)
+        }, 0)
       }
 
       // amount of posts by domain
@@ -18,48 +26,21 @@ module.exports = (app, db) => {
         return(d["domain"])
       })
 
-      // console.log("amount: \n", util.inspect(amount, false, null, true))
-
-      let tmp = _.groupBy(dataMiddle, (d) => {
-        return(d["domain"])
-      })
-
-      // console.log("OUT ", util.inspect(tmp, false, null, true))
-
-      let tmp2 = {}
-      _.each(tmp, (t, unit) => {
-        // console.log("out: \n", unit)
-        tmp2[unit] = _.groupBy(t, (d) => {
-          return d["score"]
+      let result = _.chain(dataMiddle)
+        .groupBy("domain")
+        .map((value, key) => {
+          return {
+            domain: key,
+            score: sum(_.pluck(value, "score")),
+            amount: amount[key]
+          }
         })
+        .value()
+
+      res.render('result', {
+        title: 'Result',
+        agrgresult: result
       })
-
-      // console.log("tmp2: \n", util.inspect(tmp2, false, null, true))
-
-      let finalResult = []
-      _.each(tmp2, (t, unit) => {
-        _.each(t, (items, currency) => {
-          let total = 0
-          _.each(items, (item) => {
-            // console.log("OUT:\n", item)
-            total += item["score"]
-          })
-          finalResult.push({
-            "domain": unit,
-            "totalscore": total
-          })
-        })
-      })
-
-      // console.log("FINAL RES: \n", util.inspect(finalResult, false, null, true))
-      // console.log("tmp2: \n" +  util.inspect(tmp2, false, null, true))
-
-      for (i = 0; i < dataInput.length; i++) {
-
-      }
-
-      res.render('result', {title: 'Result'})
     })
-
   })
 }

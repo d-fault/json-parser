@@ -1,13 +1,14 @@
-const getJSON = require('../middleware/getjson')
+const getJSON = require('../utils/getjson')
 const sortConf = require('../../config/srt')
-const csvConverter = require('../middleware/csv')
+// const csvConverter = require('../utils/csv')
 
 
-module.exports = (app, db) => {
+module.exports = (app) => {
   app.post('/sorting', (req, res) => {
 
-    var resID
-    let resDLM
+    let resID
+    let resDLM = "," // default delimiter
+    let brk = '"'  // really?
     for (i = 0; i < sortConf.data.length; i++) {
       if (req.body.srt === sortConf.data[i].name) {
         resID = sortConf.data[i].id
@@ -15,6 +16,7 @@ module.exports = (app, db) => {
       if (req.body.dlm === sortConf.data[i].name) {
         resDLM = sortConf.data[i].id
       }
+
     }
 
     const SortBy = (start, end) => {
@@ -30,17 +32,20 @@ module.exports = (app, db) => {
       for (i = 0; i < dataInput.length; i++) {
         let utcTime = new Date(dataInput[i].data.created_utc * 1000)
         dataOutput[i] = {
-          'domain': dataInput[i].data.domain,
-          'id': dataInput[i].data.id,
-          'title': dataInput[i].data.title,
-          'date': utcTime,
-          'score': dataInput[i].data.score
+          domain: dataInput[i].data.domain,
+          id: dataInput[i].data.id,
+          title: dataInput[i].data.title,
+          date: utcTime,
+          score: dataInput[i].data.score
         }
       }
 
       res.render('result', {
         title: 'Result',
-        result: csvConverter(dataOutput, resDLM)
+        sortresult: dataOutput,
+        dlm: resDLM,
+        brk: brk
+        // result: csvConverter(dataOutput, resDLM)
       })
     })
   })
