@@ -6,6 +6,8 @@ const sortConf = require('../../config/srt')
 module.exports = (app) => {
   app.post('/sorting', (req, res) => {
 
+    if(!req) return err
+
     let resID
     let resDLM = "," // default delimiter
     for (i = 0; i < sortConf.data.length; i++) {
